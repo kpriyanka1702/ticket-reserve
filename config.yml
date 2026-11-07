@@ -1,0 +1,32 @@
+# Local defaults only. Override DB_PASSWORD / REDIS_HOST in any shared environment.
+server:
+  applicationConnectors:
+    - type: http
+      port: 8088
+  adminConnectors:
+    - type: http
+      port: 8089
+
+database:
+  driverClass: com.mysql.cj.jdbc.Driver
+  user: ${DB_USER:-ticket}
+  password: ${DB_PASSWORD:-ticket}
+  url: ${DB_URL:-jdbc:mysql://127.0.0.1:3307/ticketreserve?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+  maxWaitForConnection: 2s
+  validationQuery: "SELECT 1"
+  minSize: 2
+  maxSize: 16
+
+redis:
+  host: ${REDIS_HOST:-127.0.0.1}
+  port: ${REDIS_PORT:-6380}
+
+holdTtlSeconds: 180
+cacheTtlSeconds: 5
+
+logging:
+  level: INFO
+  loggers:
+    com.ticketreserve: INFO
+  appenders:
+    - type: console
